@@ -331,6 +331,143 @@
       }
     }
 
+    /* =============================================== */
+    /*         OPTIMIZACIÓN ESPECÍFICA REDMI 10C      */
+    /*    (6.71", 1650×720px, ~360-412px CSS width)   */
+    /* =============================================== */
+    
+    @media screen and (min-width: 360px) and (max-width: 412px) and (min-height: 700px) {
+      body {
+        font-size: 15px; /* Ligeramente más grande que otros móviles */
+      }
+
+      /* Aprovechar la pantalla grande del Redmi 10C */
+      #contenidoOriginal {
+        padding: 15px 20px;
+        min-height: 100vh;
+      }
+
+      /* Rosa optimizada para Redmi 10C */
+      .rosa {
+        width: 140px !important; /* Más grande que iPhone */
+        height: 140px !important;
+        margin-bottom: 25px;
+      }
+
+      /* Cúpula aprovechando la altura de la pantalla */
+      .cupula {
+        width: 220px !important; /* Más ancha */
+        height: 320px !important; /* Más alta */
+        margin: 25px auto;
+      }
+
+      /* Títulos optimizados para pantalla HD+ */
+      h1 {
+        font-size: 2.4rem !important; /* Más grande que otros móviles */
+        margin: 20px 0;
+        text-align: center;
+        line-height: 1.3;
+      }
+
+      /* Párrafos con mejor aprovechamiento del ancho */
+      p {
+        font-size: 1.1rem !important; /* Texto más legible */
+        line-height: 1.6;
+        margin: 15px 0;
+        padding: 0 25px; /* Más padding lateral */
+        text-align: center;
+        max-width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Botón de viaje espacial para Redmi 10C */
+      .boton-viaje {
+        padding: 15px 25px !important; /* Más grande y cómodo */
+        font-size: 16px !important;
+        margin: 25px auto !important;
+        display: block;
+        width: fit-content;
+        max-width: 250px;
+        border-radius: 25px !important; /* Más redondeado */
+      }
+
+      /* Control de volumen optimizado para Redmi 10C */
+      .control-volumen {
+        top: 15px !important;
+        left: 15px !important;
+        padding: 10px 15px !important;
+        transform: scale(1); /* Sin reducción de escala */
+      }
+
+      .control-volumen:hover .slider-volumen {
+        width: 100px !important; /* Slider más largo */
+      }
+
+      .icono-musica {
+        font-size: 20px !important; /* Icono normal */
+      }
+
+      .texto-volumen {
+        font-size: 12px !important;
+        min-width: 35px !important;
+      }
+
+      /* Sol central optimizado para pantalla HD+ */
+      .sol-central {
+        width: 35px !important; /* Ligeramente más grande */
+        height: 35px !important;
+      }
+
+      /* Pantalla de viaje espacial para Redmi 10C */
+      #viajeEspacial {
+        padding: 15px;
+      }
+
+      .texto-hiperespacio {
+        font-size: 1.4rem !important; /* Más grande */
+        padding: 0 30px;
+        text-align: center;
+        margin-top: 50px; /* Mejor posicionamiento */
+      }
+
+      /* Partículas optimizadas para el procesador del Redmi 10C */
+      .estrella-centro,
+      .estrella-warp,
+      .particula-espacial {
+        max-width: 4px; /* Ligeramente más grandes */
+        max-height: 4px;
+      }
+
+      /* Instrucciones de salida para Redmi 10C */
+      .instrucciones-salida {
+        bottom: 40px !important;
+        font-size: 13px !important;
+        padding: 0 30px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 20px;
+        padding: 10px 20px;
+        backdrop-filter: blur(5px);
+      }
+
+      /* Aprovechar la resolución HD+ para mejores gradientes */
+      .cupula::before {
+        background: radial-gradient(ellipse at center top, 
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.05) 30%,
+          transparent 70%);
+      }
+
+      /* Optimización de rendimiento específica para Helio G35 */
+      .estrella-centro {
+        animation-duration: 0.8s !important; /* Más lento para mejor rendimiento */
+      }
+
+      .estrella-warp {
+        animation-duration: 1s !important;
+      }
+    }
+
     /* Dispositivos extra pequeños (320px) */
     @media screen and (max-width: 320px) {
       .rosa {
@@ -1382,6 +1519,18 @@
       return window.innerWidth <= 480 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
+    // Función para detectar Redmi 10C específicamente
+    function esRedmi10C() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const userAgent = navigator.userAgent;
+      
+      // Detectar por dimensiones típicas del Redmi 10C y UserAgent
+      return (width >= 360 && width <= 412 && height >= 700) && 
+             /Android/i.test(userAgent) && 
+             (userAgent.includes('Redmi') || width === 393 || width === 412);
+    }
+
     let viajeActivo = false;
     let intervalos = [];
     let audioElement = null;
@@ -1547,16 +1696,26 @@
       // Crear estrellas que aparecen y se mueven hacia atrás (cada vez más rápido)
       crearIntervaloAdaptativo(() => {
         const velocidad = calcularVelocidadDinamica();
-        // Reducir cantidad en móvil para mejor rendimiento
-        const factorMovil = esMobile() ? 0.5 : 1;
-        const cantidad = Math.ceil(velocidad * velocidad * 1.2 * factorMovil);
+        
+        // Optimización específica por dispositivo
+        let factorDispositivo;
+        if (esRedmi10C()) {
+          // Redmi 10C: Balance entre rendimiento y efectos visuales
+          factorDispositivo = 0.7; // 30% menos que desktop, más que otros móviles
+        } else if (esMobile()) {
+          factorDispositivo = 0.5; // Otros móviles: 50% reducción
+        } else {
+          factorDispositivo = 1; // Desktop: sin reducción
+        }
+        
+        const cantidad = Math.ceil(velocidad * velocidad * 1.2 * factorDispositivo);
         
         for (let i = 0; i < cantidad; i++) {
           setTimeout(() => {
             crearEstrellaCentro();
           }, i * (30 / velocidad));
         }
-      }, esMobile() ? 120 : 60); // Intervalos más largos en móvil
+      }, esRedmi10C() ? 80 : (esMobile() ? 120 : 60)); // Intervalo optimizado para Redmi 10C
       
       // Crear estrellas que se estiran (más frecuentes con velocidad alta)
       crearIntervaloAdaptativo(() => {
@@ -1596,20 +1755,28 @@
         }
       }, 800); // Más frecuente: de 1200 a 800
       
-      // NUEVO: Crear ráfagas de estrellas pequeñas con velocidad muy alta (reducido en móvil)
+      // NUEVO: Crear ráfagas de estrellas pequeñas con velocidad muy alta
       crearIntervaloAdaptativo(() => {
         const velocidad = calcularVelocidadDinamica();
         if (velocidad > 6) {
-          // Reducir drasticamente en móvil
-          const factorMovil = esMobile() ? 0.3 : 1;
-          const cantidad = Math.ceil(velocidad * 2 * factorMovil);
+          // Optimización específica por dispositivo
+          let factorDispositivo;
+          if (esRedmi10C()) {
+            factorDispositivo = 0.5; // Redmi 10C: Balance medio
+          } else if (esMobile()) {
+            factorDispositivo = 0.3; // Otros móviles: Muy reducido
+          } else {
+            factorDispositivo = 1; // Desktop: Sin reducción
+          }
+          
+          const cantidad = Math.ceil(velocidad * 2 * factorDispositivo);
           for (let i = 0; i < cantidad; i++) {
             setTimeout(() => {
               crearMiniEstrella();
             }, i * 20);
           }
         }
-      }, esMobile() ? 400 : 200);
+      }, esRedmi10C() ? 300 : (esMobile() ? 400 : 200));
     }
     
     // Crear estrella que aparece aleatoriamente y se mueve hacia atrás
@@ -1955,8 +2122,11 @@
     
     // === INICIALIZACIÓN ===
     document.addEventListener('DOMContentLoaded', function() {
-      // Optimizar para dispositivos móviles
-      if (esMobile()) {
+      // Detectar y optimizar para dispositivos específicos
+      if (esRedmi10C()) {
+        document.body.classList.add('redmi-10c-device');
+        console.log('Redmi 10C detectado - Optimizaciones específicas activadas');
+      } else if (esMobile()) {
         document.body.classList.add('mobile-device');
       }
 
