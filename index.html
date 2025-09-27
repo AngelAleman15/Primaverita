@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Flor Eterna</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&display=swap');
@@ -63,6 +64,350 @@
     @keyframes parpadear {
       0% { opacity: 0.3; transform: scale(1); }
       100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Control de volumen divertido */
+    .control-volumen {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 25px;
+      padding: 10px 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .control-volumen:hover {
+      background: rgba(0, 0, 0, 0.8);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .icono-musica {
+      font-size: 20px;
+      color: #fff;
+      margin-right: 10px;
+      animation: notasVoladoras 3s ease-in-out infinite;
+    }
+
+    @keyframes notasVoladoras {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-5deg) scale(1.1); }
+      75% { transform: rotate(5deg) scale(1.1); }
+    }
+
+    .slider-volumen {
+      width: 0;
+      opacity: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+      border-radius: 10px;
+      outline: none;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .control-volumen:hover .slider-volumen {
+      width: 120px;
+      opacity: 1;
+      margin-right: 10px;
+    }
+
+    .slider-volumen::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .slider-volumen::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .slider-volumen::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      border: none;
+    }
+
+    .texto-volumen {
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      min-width: 35px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .control-volumen:hover .texto-volumen {
+      opacity: 1;
+    }
+
+    /* Partículas de música que flotan */
+    .particula-nota {
+      position: absolute;
+      pointer-events: none;
+      z-index: 999;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      animation: flotarNota 2s ease-out forwards;
+    }
+
+    @keyframes flotarNota {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-50px) rotate(360deg) scale(1.5);
+      }
+    }
+
+    /* =============================================== */
+    /*           ESTILOS RESPONSIVOS MÓVILES          */
+    /* =============================================== */
+
+    /* iPhone 16 Pro Max y dispositivos similares (430px) */
+    @media screen and (max-width: 430px) {
+      body {
+        font-size: 14px;
+        overflow-x: hidden;
+      }
+
+      /* Contenedor principal */
+      #contenidoOriginal {
+        padding: 10px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Rosa responsiva */
+      .rosa {
+        width: 120px !important;
+        height: 120px !important;
+        margin-bottom: 20px;
+      }
+
+      /* Cúpula más pequeña para móvil */
+      .cupula {
+        width: 200px !important;
+        height: 300px !important;
+        margin: 20px auto;
+      }
+
+      /* Título más pequeño */
+      h1 {
+        font-size: 2.2rem !important;
+        margin: 15px 0;
+        text-align: center;
+        line-height: 1.2;
+      }
+
+      /* Párrafos más legibles */
+      p {
+        font-size: 1rem !important;
+        line-height: 1.5;
+        margin: 12px 0;
+        padding: 0 15px;
+        text-align: center;
+      }
+
+      /* Botón de viaje espacial móvil */
+      .boton-viaje {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+        margin: 20px auto !important;
+        display: block;
+        width: fit-content;
+        max-width: 200px;
+      }
+
+      /* Control de volumen móvil */
+      .control-volumen {
+        top: 10px !important;
+        left: 10px !important;
+        padding: 8px 12px !important;
+        transform: scale(0.9);
+      }
+
+      .control-volumen:hover .slider-volumen {
+        width: 80px !important;
+      }
+
+      .icono-musica {
+        font-size: 18px !important;
+      }
+
+      .texto-volumen {
+        font-size: 11px !important;
+        min-width: 30px !important;
+      }
+
+      /* Sol central móvil */
+      .sol-central {
+        width: 30px !important;
+        height: 30px !important;
+      }
+
+      /* Estrellas de fondo más pequeñas */
+      .estrella {
+        max-width: 2px;
+        max-height: 2px;
+      }
+
+      /* Pantalla de viaje espacial móvil */
+      #viajeEspacial {
+        padding: 10px;
+      }
+
+      .texto-hiperespacio {
+        font-size: 1.2rem !important;
+        padding: 0 20px;
+        text-align: center;
+      }
+
+      /* Partículas más pequeñas en móvil */
+      .estrella-centro,
+      .estrella-warp,
+      .particula-espacial {
+        max-width: 3px;
+        max-height: 3px;
+      }
+
+      /* Instrucciones de salida móvil */
+      .texto-hiperespacio + div {
+        bottom: 30px !important;
+        font-size: 12px !important;
+        padding: 0 20px;
+      }
+    }
+
+    /* iPhone estándar y dispositivos medianos (375px) */
+    @media screen and (max-width: 375px) {
+      .rosa {
+        width: 100px !important;
+        height: 100px !important;
+      }
+
+      .cupula {
+        width: 180px !important;
+        height: 280px !important;
+      }
+
+      h1 {
+        font-size: 2rem !important;
+      }
+
+      p {
+        font-size: 0.9rem !important;
+        padding: 0 10px;
+      }
+
+      .control-volumen:hover .slider-volumen {
+        width: 70px !important;
+      }
+    }
+
+    /* Dispositivos extra pequeños (320px) */
+    @media screen and (max-width: 320px) {
+      .rosa {
+        width: 80px !important;
+        height: 80px !important;
+      }
+
+      .cupula {
+        width: 160px !important;
+        height: 260px !important;
+      }
+
+      h1 {
+        font-size: 1.8rem !important;
+      }
+
+      .boton-viaje {
+        padding: 10px 15px !important;
+        font-size: 13px !important;
+      }
+
+      .control-volumen {
+        transform: scale(0.8);
+      }
+    }
+
+    /* Orientación horizontal en móviles */
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+      #contenidoOriginal {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px;
+      }
+
+      .cupula {
+        margin: 0 20px;
+      }
+
+      h1, p {
+        text-align: left;
+      }
+
+      .boton-viaje {
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        margin: 0 !important;
+      }
+    }
+
+    /* Asegurar que elementos no se salgan en móvil */
+    @media screen and (max-width: 480px) {
+      * {
+        max-width: 100vw;
+        box-sizing: border-box;
+      }
+
+      /* Ocultar desbordamiento en móvil */
+      body, html {
+        overflow-x: hidden;
+      }
+
+      /* Ajustar animaciones para móvil */
+      .estrella-centro,
+      .estrella-warp,
+      .mini-estrella {
+        animation-duration: 0.5s !important;
+      }
+
+      /* Touch-friendly */
+      .boton-viaje,
+      .control-volumen,
+      #viajeEspacial {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
     }
 
     /* Base de madera */
@@ -913,6 +1258,13 @@
   <!-- Sol central para el viaje espacial -->
   <div class="sol-central" id="solCentral"></div>
 
+  <!-- Control de volumen divertido -->
+  <div class="control-volumen" id="controlVolumen">
+    <div class="icono-musica">🎵</div>
+    <input type="range" min="0" max="100" value="10" class="slider-volumen" id="sliderVolumen">
+    <div class="texto-volumen" id="textoVolumen">10%</div>
+  </div>
+
   <!-- Estrellas de fondo (FUERA del contenido original para evitar conflictos) -->
   <div class="estrella" style="top: 15%; left: 20%; width: 2px; height: 2px; animation-delay: 0s;"></div>
   <div class="estrella" style="top: 25%; left: 80%; width: 1px; height: 1px; animation-delay: 1s;"></div>
@@ -1012,14 +1364,24 @@
     <div id="contenedorImagenes"></div>
   </div>
 
+  <!-- Audio de fondo -->
+  <audio id="musicaFondo" preload="auto" loop volume="0.3">
+    <source src="music/fondito.mp3" type="audio/mpeg">
+  </audio>
+
   <!-- Audio para el viaje -->
-  <audio id="musicaViaje" preload="auto" loop>
+  <audio id="musicaViaje" preload="auto">
     <source src="music/CornfieldChase.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     // === SISTEMA DE VIAJE ESPACIAL ESTILO NO MAN'S SKY ===
     
+    // Función para detectar si es dispositivo móvil
+    function esMobile() {
+      return window.innerWidth <= 480 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
     let viajeActivo = false;
     let intervalos = [];
     let audioElement = null;
@@ -1031,13 +1393,32 @@
       if (!audioElement || !duracionCancion) return 1;
       
       const tiempoActual = audioElement.currentTime;
-      const progreso = tiempoActual / duracionCancion;
       
-      // Acelerar progresivamente
-      const velocidad = 1 + (progreso * 3); // De 1x a 4x
-      
-      return Math.min(velocidad, 4);
+      // Fases específicas de velocidad basadas en tiempo - MUY DRAMÁTICAS
+      if (tiempoActual <= 32) {
+        // 0:00 - 0:32: Normal (velocidad 1x)
+        return 1;
+      } else if (tiempoActual <= 42) {
+        // 0:33 - 0:42: Un poco más rápido (1x a 4x progresivo) - MÁS DRAMÁTICO
+        const progreso = (tiempoActual - 32) / 10; // 10 segundos de duración
+        return 1 + (progreso * progreso * 3); // De 1x a 4x con curva exponencial
+      } else if (tiempoActual <= 120) {
+        // 0:43 - 2:00: Rápido (4x a 12x progresivo) - MUY DRAMÁTICO
+        const progreso = (tiempoActual - 42) / 78; // 78 segundos de duración
+        return 4 + (progreso * progreso * 8); // De 4x a 12x con curva exponencial
+      } else {
+        // 2:01 - Final: Desaceleración gradual (12x a 0.1x) - MUY DRAMÁTICA
+        const tiempoDesaceleracion = tiempoActual - 120;
+        const duracionDesaceleracion = duracionCancion - 120;
+        const progreso = Math.min(tiempoDesaceleracion / duracionDesaceleracion, 1);
+        
+        // Curva de desaceleración exponencial inversa MUY pronunciada
+        const velocidad = 12 * Math.pow(1 - progreso, 3); // De 12x a 0x con curva cúbica
+        return Math.max(velocidad, 0.1); // Mínimo 0.1x para que no se detenga completamente hasta el final
+      }
     }
+    
+    // Función para finalizar el viaje cuando termine la música o llegue casi a cero
     
     // Función principal para iniciar el viaje espacial
     async function iniciarViajeEspacial() {
@@ -1045,7 +1426,13 @@
       
       viajeActivo = true;
       
-      // Reproducir música
+      // Detener música de fondo si está sonando
+      const musicaFondo = document.getElementById('musicaFondo');
+      if (musicaFondo) {
+        musicaFondo.pause();
+      }
+      
+      // Reproducir música del viaje
       audioElement = document.getElementById('musicaViaje');
       audioElement.currentTime = 0;
       
@@ -1064,6 +1451,11 @@
       contenidoOriginal.style.transform = 'scale(0.8)';
       contenidoOriginal.style.visibility = 'hidden';
       contenidoOriginal.style.pointerEvents = 'none';
+      
+      // Ocultar control de volumen durante el viaje
+      const controlVolumen = document.getElementById('controlVolumen');
+      controlVolumen.style.opacity = '0';
+      controlVolumen.style.pointerEvents = 'none';
       
       // Mostrar el sol central
       const solCentral = document.getElementById('solCentral');
@@ -1093,6 +1485,27 @@
         
         // Iniciar loop de actualización de velocidad
         iniciarLoopVelocidad();
+        
+        // Mostrar instrucciones de salida después de 8 segundos
+        setTimeout(() => {
+          if (viajeActivo) {
+            const textoHiperespacio = document.querySelector('.texto-hiperespacio');
+            if (textoHiperespacio) {
+              const instrucciones = document.createElement('div');
+              instrucciones.style.position = 'absolute';
+              instrucciones.style.bottom = '50px';
+              instrucciones.style.left = '50%';
+              instrucciones.style.transform = 'translateX(-50%)';
+              instrucciones.style.color = 'rgba(255, 255, 255, 0.6)';
+              instrucciones.style.fontSize = '14px';
+              instrucciones.style.textAlign = 'center';
+              instrucciones.style.zIndex = '1005';
+              instrucciones.style.animation = 'parpadear 2s ease-in-out infinite alternate';
+              instrucciones.innerHTML = 'Presiona ESC o haz clic para regresar';
+              document.getElementById('viajeEspacial').appendChild(instrucciones);
+            }
+          }
+        }, 8000);
       }, 2000);
     }
     
@@ -1114,33 +1527,89 @@
       intervalos.forEach(clearInterval);
       intervalos = [];
       
-      // Crear estrellas que aparecen desde el centro y se mueven hacia atrás
-      intervalos.push(setInterval(() => {
+      // Función para crear intervalos que se aceleran
+      function crearIntervaloAdaptativo(funcion, intervaloBase) {
+        function ejecutar() {
+          if (!viajeActivo) return;
+          
+          const velocidad = calcularVelocidadDinamica();
+          // Intervalos más sensibles a la velocidad - cambio más dramático
+          const intervaloActual = Math.max(20, intervaloBase / (velocidad * velocidad)); // Uso velocidad al cuadrado para más dramatismo
+          
+          funcion();
+          
+          setTimeout(ejecutar, intervaloActual);
+        }
+        
+        ejecutar();
+      }
+      
+      // Crear estrellas que aparecen y se mueven hacia atrás (cada vez más rápido)
+      crearIntervaloAdaptativo(() => {
         const velocidad = calcularVelocidadDinamica();
-        const cantidad = Math.ceil(velocidad * 2); // Más estrellas con mayor velocidad
+        // Reducir cantidad en móvil para mejor rendimiento
+        const factorMovil = esMobile() ? 0.5 : 1;
+        const cantidad = Math.ceil(velocidad * velocidad * 1.2 * factorMovil);
         
         for (let i = 0; i < cantidad; i++) {
-          setTimeout(() => crearEstrellaCentro(), i * 30);
+          setTimeout(() => {
+            crearEstrellaCentro();
+          }, i * (30 / velocidad));
         }
-      }, 100));
+      }, esMobile() ? 120 : 60); // Intervalos más largos en móvil
       
-      // Crear estrellas que se estiran (efecto secundario)
-      intervalos.push(setInterval(() => {
+      // Crear estrellas que se estiran (más frecuentes con velocidad alta)
+      crearIntervaloAdaptativo(() => {
         const velocidad = calcularVelocidadDinamica();
-        if (velocidad > 2) { // Solo cuando hay velocidad alta
-          crearEstrellaWarp();
+        if (velocidad > 1.5) { // Umbral más bajo: de 2 a 1.5
+          // Crear múltiples estrellas warp basado en velocidad
+          const cantidad = Math.ceil(velocidad / 2);
+          for (let i = 0; i < cantidad; i++) {
+            setTimeout(() => {
+              crearEstrellaWarp();
+            }, i * 50);
+          }
         }
-      }, 300));
+      }, 150); // Más frecuente: de 300 a 150
       
-      // Crear líneas de velocidad ocasionales
-      intervalos.push(setInterval(() => {
-        crearLineaVelocidad();
-      }, 600));
+      // Crear líneas de velocidad MUCHO más frecuentes a mayor velocidad
+      crearIntervaloAdaptativo(() => {
+        const velocidad = calcularVelocidadDinamica();
+        // Crear múltiples líneas basado en velocidad
+        const cantidad = Math.ceil(velocidad / 1.5);
+        for (let i = 0; i < cantidad; i++) {
+          setTimeout(() => {
+            crearLineaVelocidad();
+          }, i * 30);
+        }
+      }, 300); // Más frecuente: de 600 a 300
       
-      // Crear partículas espaciales suaves
-      intervalos.push(setInterval(() => {
-        crearParticulaEspacial();
-      }, 1200));
+      // Crear partículas espaciales MÚLTIPLES con velocidad alta
+      crearIntervaloAdaptativo(() => {
+        const velocidad = calcularVelocidadDinamica();
+        // Crear múltiples partículas basado en velocidad
+        const cantidad = Math.ceil(velocidad * 0.8);
+        for (let i = 0; i < cantidad; i++) {
+          setTimeout(() => {
+            crearParticulaEspacial();
+          }, i * 100);
+        }
+      }, 800); // Más frecuente: de 1200 a 800
+      
+      // NUEVO: Crear ráfagas de estrellas pequeñas con velocidad muy alta (reducido en móvil)
+      crearIntervaloAdaptativo(() => {
+        const velocidad = calcularVelocidadDinamica();
+        if (velocidad > 6) {
+          // Reducir drasticamente en móvil
+          const factorMovil = esMobile() ? 0.3 : 1;
+          const cantidad = Math.ceil(velocidad * 2 * factorMovil);
+          for (let i = 0; i < cantidad; i++) {
+            setTimeout(() => {
+              crearMiniEstrella();
+            }, i * 20);
+          }
+        }
+      }, esMobile() ? 400 : 200);
     }
     
     // Crear estrella que aparece aleatoriamente y se mueve hacia atrás
@@ -1171,21 +1640,27 @@
       estrella.style.left = x + 'px';
       estrella.style.top = y + 'px';
       
-      // Tamaño inicial pequeño
-      const tamano = Math.random() * 2 + 1;
+      // Tamaño que aumenta dramáticamente con la velocidad
+      const tamano = Math.random() * (1 + velocidad * 0.8) + (0.5 + velocidad * 0.3); // Tamaño base + factor de velocidad
       estrella.style.width = tamano + 'px';
       estrella.style.height = tamano + 'px';
-      estrella.style.background = '#fff';
+      
+      // Color que se intensifica con velocidad
+      const intensidad = Math.min(velocidad / 12, 1);
+      const colorR = 255;
+      const colorG = Math.floor(255 - (intensidad * 50)); // Ligeramente azulado a alta velocidad
+      const colorB = Math.floor(255 - (intensidad * 30));
+      estrella.style.background = `rgb(${colorR}, ${colorG}, ${colorB})`;
       estrella.style.borderRadius = '50%';
       estrella.style.position = 'absolute';
-      estrella.style.boxShadow = '0 0 4px rgba(255,255,255,0.8)';
+      estrella.style.boxShadow = `0 0 ${2 + velocidad * 2}px rgba(255,255,255,${0.6 + velocidad * 0.1})`;
       estrella.style.zIndex = '10';
       
-      // Duración basada en velocidad
-      const duracion = Math.max(1, 3 / velocidad);
+      // Duración MUY DRAMÁTICA basada en velocidad (mucho más rápido)
+      const duracion = Math.max(0.1, 2 / (velocidad * velocidad)); // Cuadrática para efecto muy dramático
       
-      // Posición final (más hacia atrás en la dirección opuesta)
-      const distanciaMovimiento = Math.max(window.innerWidth, window.innerHeight) * 0.8;
+      // Posición final MUY DRAMÁTICA (distancia mayor con velocidad alta)
+      const distanciaMovimiento = Math.max(window.innerWidth, window.innerHeight) * (0.5 + velocidad * 0.3);
       const xFinal = x - (direccionX * distanciaMovimiento);
       const yFinal = y - (direccionY * distanciaMovimiento);
       
@@ -1281,6 +1756,63 @@
       }, duracion * 1000);
     }
     
+    // NUEVA: Crear mini-estrella para efectos de alta velocidad
+    function crearMiniEstrella() {
+      if (!viajeActivo) return;
+      
+      const velocidad = calcularVelocidadDinamica();
+      const miniEstrella = document.createElement('div');
+      
+      // Posición inicial aleatoria
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      
+      const dx = centerX - x;
+      const dy = centerY - y;
+      const distancia = Math.sqrt(dx * dx + dy * dy);
+      
+      const direccionX = dx / distancia;
+      const direccionY = dy / distancia;
+      
+      miniEstrella.style.left = x + 'px';
+      miniEstrella.style.top = y + 'px';
+      
+      // Mini-estrellas muy pequeñas y rápidas
+      const tamano = Math.random() * 1.5 + 0.5; // 0.5 a 2px
+      miniEstrella.style.width = tamano + 'px';
+      miniEstrella.style.height = tamano + 'px';
+      miniEstrella.style.background = 'white';
+      miniEstrella.style.borderRadius = '50%';
+      miniEstrella.style.position = 'absolute';
+      miniEstrella.style.boxShadow = `0 0 ${1 + velocidad}px rgba(255,255,255,0.9)`;
+      miniEstrella.style.zIndex = '9';
+      
+      // Duración súper rápida
+      const duracion = Math.max(0.05, 0.3 / velocidad);
+      
+      // Movimiento hacia atrás desde el centro
+      const distanciaMovimiento = Math.max(window.innerWidth, window.innerHeight) * 1.5;
+      const xFinal = x - (direccionX * distanciaMovimiento);
+      const yFinal = y - (direccionY * distanciaMovimiento);
+      
+      miniEstrella.style.transition = `all ${duracion}s linear`;
+      
+      document.getElementById('contenedorEstrellas').appendChild(miniEstrella);
+      
+      setTimeout(() => {
+        miniEstrella.style.left = xFinal + 'px';
+        miniEstrella.style.top = yFinal + 'px';
+        miniEstrella.style.opacity = '0';
+      }, 10);
+      
+      setTimeout(() => {
+        if (miniEstrella.parentNode) miniEstrella.remove();
+      }, duracion * 1000);
+    }
+    
     // Crear túnel espacial ocasional
     function crearTunelEspacial() {
       if (!viajeActivo) return;
@@ -1308,6 +1840,38 @@
       }, duracion * 1000);
     }
     
+    // Función divertida para crear partículas musicales
+    function crearParticulaMusical(elemento, volumen) {
+      const particula = document.createElement('div');
+      particula.className = 'particula-nota';
+      
+      // Diferentes notas musicales según el volumen
+      const notas = ['🎵', '🎶', '♪', '♫', '🎼'];
+      const nota = notas[Math.floor(Math.random() * notas.length)];
+      particula.textContent = nota;
+      
+      // Posición aleatoria alrededor del control
+      const rect = elemento.getBoundingClientRect();
+      const x = rect.left + Math.random() * rect.width;
+      const y = rect.top + Math.random() * rect.height;
+      
+      particula.style.left = x + 'px';
+      particula.style.top = y + 'px';
+      
+      // Color basado en el volumen
+      const hue = (volumen / 100) * 120; // De rojo (0) a verde (120)
+      particula.style.color = `hsl(${hue}, 70%, 60%)`;
+      
+      document.body.appendChild(particula);
+      
+      // Remover después de la animación
+      setTimeout(() => {
+        if (particula.parentNode) {
+          particula.remove();
+        }
+      }, 2000);
+    }
+    
     // Función para detener el viaje espacial
     function detenerViajeEspacial() {
       if (!viajeActivo) return;
@@ -1315,10 +1879,19 @@
       viajeActivo = false;
       velocidadBase = 1;
       
-      // Detener música
+      // Detener música del viaje
       if (audioElement) {
         audioElement.pause();
         audioElement.currentTime = 0;
+      }
+      
+      // Restaurar música de fondo con volumen bajo
+      const musicaFondo = document.getElementById('musicaFondo');
+      if (musicaFondo) {
+        musicaFondo.volume = 0.25; // Volumen al 25%
+        musicaFondo.play().catch(error => {
+          console.log('No se pudo reproducir la música de fondo:', error);
+        });
       }
       
       // Limpiar intervalos
@@ -1373,10 +1946,48 @@
       setTimeout(() => {
         contenidoOriginal.style.transition = '';
       }, 100);
+      
+      // Restaurar control de volumen
+      const controlVolumen = document.getElementById('controlVolumen');
+      controlVolumen.style.opacity = '';
+      controlVolumen.style.pointerEvents = '';
     }
     
     // === INICIALIZACIÓN ===
     document.addEventListener('DOMContentLoaded', function() {
+      // Optimizar para dispositivos móviles
+      if (esMobile()) {
+        document.body.classList.add('mobile-device');
+      }
+
+      // Iniciar música de fondo con volumen bajo
+      const musicaFondo = document.getElementById('musicaFondo');
+      if (musicaFondo) {
+        musicaFondo.volume = 0.25; // Volumen al 25%
+        musicaFondo.play().catch(error => {
+          console.log('Música de fondo requiere interacción del usuario:', error);
+        });
+      }
+      
+      // Configurar control de volumen divertido
+      const sliderVolumen = document.getElementById('sliderVolumen');
+      const textoVolumen = document.getElementById('textoVolumen');
+      const controlVolumen = document.getElementById('controlVolumen');
+      
+      sliderVolumen.addEventListener('input', function() {
+        const volumen = this.value / 100;
+        const musicaFondo = document.getElementById('musicaFondo');
+        
+        if (musicaFondo) {
+          musicaFondo.volume = volumen;
+        }
+        
+        textoVolumen.textContent = this.value + '%';
+        
+        // Crear partícula de nota musical divertida
+        crearParticulaMusical(controlVolumen, this.value);
+      });
+      
       // Configurar botón de viaje espacial
       const botonViaje = document.getElementById('botonViajeEspacial');
       if (botonViaje) {
@@ -1390,8 +2001,47 @@
         }
       });
       
-      // Configurar clic en pantalla para detener viaje
-      document.getElementById('viajeEspacial').addEventListener('click', detenerViajeEspacial);
+      // Evento para iniciar música de fondo con interacción del usuario
+      document.addEventListener('click', function() {
+        const musicaFondo = document.getElementById('musicaFondo');
+        if (musicaFondo && musicaFondo.paused && !viajeActivo) {
+          musicaFondo.volume = 0.25; // Volumen al 25%
+          musicaFondo.play().catch(() => {});
+        }
+      });
+      
+      // Configurar clic en pantalla para detener viaje (incluyendo táctil)
+      const pantallaViaje = document.getElementById('viajeEspacial');
+      pantallaViaje.addEventListener('click', detenerViajeEspacial);
+      pantallaViaje.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        detenerViajeEspacial();
+      });
+
+      // Mejorar experiencia táctil del botón de viaje
+      const botonViajeMovil = document.querySelector('.boton-viaje');
+      if (botonViajeMovil) {
+        botonViajeMovil.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          iniciarViajeEspacial();
+        });
+      }
+
+      // Prevenir zoom en doble tap en iOS
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function (event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+
+      // Ajustar velocidad de animaciones en dispositivos móviles
+      if (window.innerWidth <= 480) {
+        // Reducir la intensidad de efectos en móviles para mejor rendimiento
+        document.documentElement.style.setProperty('--mobile-performance', '0.7');
+      }
     });
     
     // === FIN DE FUNCIONES DEL VIAJE ESPACIAL ===
